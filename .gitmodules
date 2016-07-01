@@ -10,3 +10,6 @@
 [submodule "components/dotties-pg"]
 	path = components/dotties-pg
 	url = git@github.com:blainesch/dotties-pg.git
+[submodule "components/dotties-git"]
+	path = components/dotties-git
+	url = git@github.com:blainesch/dotties-git.git
