@@ -50,6 +50,38 @@ class VimBundles < Vim
   end
 end
 
+class GitConfig
+  attr_accessor :configs
+
+  def initialize
+    self.configs = []
+  end
+
+  def likes?(base)
+    base == 'gitconfig'
+  end
+
+  def push(path)
+    self.configs << path
+  end
+
+  def save!
+    self.configs.each_index do |follower_index|
+      follower = configs[follower_index]
+      leader = configs[follower_index + 1]
+      if leader
+        follower_path = File.dirname(follower)
+        link = File.join(follower_path, '.next.gitconfig')
+        File.symlink?(link) && File.delete(link)
+        File.symlink(leader, link)
+      end
+      if not File.symlink?('.gitconfig')
+        File.symlink(follower, '.gitconfig')
+      end
+    end
+  end
+end
+
 class UnknownFormat
   attr_accessor :links
 
@@ -70,7 +102,7 @@ class UnknownFormat
   def save!
     links.each do |base_name, path|
       link = ".#{base_name}"
-      File.exists?(link) && File.delete(link)
+      File.symlink?(link) && File.delete(link)
       File.symlink(path, link)
     end
   end
@@ -81,6 +113,7 @@ class Dotties
   def initialize
     self.files = []
     self.adapters = [
+      GitConfig.new,
       Tmux.new,
       Vim.new,
       VimBundles.new,
@@ -114,5 +147,5 @@ Dir.entries(root).select { |component|
     p File.join(root, component, file)
     dotties.push(File.join(root, component, file))
   }
-  dotties.save!
 }
+dotties.save!
