@@ -25,9 +25,9 @@ module Adapters
 
     def save!
       return if data.empty?
-      f = File.new(File.join('configs', name), 'w')
-      f.write(data.join("\n"))
-      f.close
+      File.open(File.join('configs', name), 'w') do |file|
+        file.write(data.join("\n"))
+      end
     end
   end
 end
