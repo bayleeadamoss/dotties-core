@@ -51,32 +51,43 @@ class VimBundles < Vim
 end
 
 class GitConfig
-  attr_accessor :configs
+  attr_accessor :configs, :name
 
   def initialize
     self.configs = []
+    self.name = '.gitconfig'
   end
 
   def likes?(base)
-    base == 'gitconfig'
+    base == name.match(/\.(.*)/)[1]
   end
 
   def push(path)
     self.configs << path
   end
 
+  def link(save_to, include_path)
+    data = %{
+      [include]
+        path = #{File.absolute_path(include_path)}
+    }
+    f = File.new(save_to, 'w')
+    f.write(data)
+    f.close
+  end
+
+  def next_file(config_file)
+    path = File.dirname(config_file)
+    File.join(path, ".next#{name}")
+  end
+
   def save!
-    self.configs.each_index do |follower_index|
+    link(name, configs.first)
+    configs.each_index do |follower_index|
       follower = configs[follower_index]
       leader = configs[follower_index + 1]
       if leader
-        follower_path = File.dirname(follower)
-        link = File.join(follower_path, '.next.gitconfig')
-        File.symlink?(link) && File.delete(link)
-        File.symlink(leader, link)
-      end
-      if not File.symlink?('.gitconfig')
-        File.symlink(follower, '.gitconfig')
+        link(next_file(follower), leader)
       end
     end
   end
