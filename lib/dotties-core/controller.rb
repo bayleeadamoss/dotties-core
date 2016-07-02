@@ -30,7 +30,7 @@ class Controller
         puts line
       end
     else
-      puts "Install not yet available."
+      Dotties.new.install(option)
     end
   end
 
@@ -44,7 +44,7 @@ class Controller
         puts line
       end
     else
-      puts "Uninstall not yet available."
+      Dotties.new.uninstall(option)
     end
   end
 
@@ -57,7 +57,7 @@ class Controller
         puts line
       end
     else
-      puts "Update not yet available."
+      Dotties.new.update
     end
   end
 end
