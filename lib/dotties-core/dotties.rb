@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'fileutils'
+require 'yaml'
 
 class Dotties
   attr_accessor :files, :formats
@@ -14,38 +15,45 @@ class Dotties
     ]
   end
 
-  def install(package)
-    if package_exists?(package)
-      root = "./components"
-      folder = package.gsub('/', '-')
-      `git clone https://github.com/#{package}.git #{File.join(root, folder)}`
-      File.open('.dotties.yml', 'a') do |file|
-        file.puts("  - #{package}")
+  def install(package_name, root_level_page = true)
+    package = Package.new(package_name)
+    if package.installed?
+      puts "Package '#{package_name}' already installed."
+    elsif package.exists?
+      package.install!
+      package.dependencies.each do |sub_package|
+        install(sub_package, false)
       end
-      update
+
+      if root_level_page
+        ConfigFile.new('.dotties.yml').add(:packages, package.name)
+        update_noop
+        puts "Package '#{package_name}' installed."
+      end
     else
-      puts "Package '#{package}' does not exist on github."
+      puts "Package '#{package_name}' does not exist on github."
     end
   end
 
-  def uninstall(package)
-    root = "./components"
-    folder = package.gsub('/', '-')
+  def uninstall(package_name, root_level_package = true)
+    package = Package.new(package_name)
+    if package.installed?
+      package.dependencies.each do |sub_package|
+        uninstall(sub_package, false)
+      end
 
-    output = File.open('.dotties.yml', 'r').reject do |input|
-      input.match(package)
+      package.uninstall!
+
+      if root_level_package
+        ConfigFile.new('.dotties.yml').remove(:packages, package)
+        update_noop
+        puts "Package '#{package_name}' uninstalled."
+      end
     end
-
-    File.open('.dotties.yml', 'w+') do |file|
-      file.write(output.join)
-    end
-
-    FileUtils.remove_entry_secure(File.join(root, folder))
-    update
   end
 
   def update
-    component_files.each do |file_name|
+    files.each do |file_name|
       base_name = File.basename(file_name)
       formats.detect { |adapter|
         adapter.likes?(base_name)
@@ -56,27 +64,26 @@ class Dotties
 
   protected
 
-  def package_exists?(package)
-    open("https://api.github.com/repos/#{package}/stats/commit_activity")
-    true
-  rescue
-    false
+  def update_noop
   end
 
   def components
-    root = "./components"
-    Dir.entries(root).select do |component|
-      !component.match(/^\./)
+    ConfigFile.new('.dotties.yml').get(:packages, [])
+  end
+
+  def files
+    components.reduce([]) do |memo, component|
+      memo + component_files(component)
     end
   end
 
-  def component_files
-    root = "./components"
-    components.reduce([]) do |memo, component|
-      Dir.entries(File.join(root, component)).each do |file|
-        memo << File.join(root, component, file) if !file.match(/^\./)
+  def component_files(package_name)
+    package = Package.new(package_name)
+    [].tap do |files|
+      package.dependencies.each do |child|
+        files.push(*component_files(child))
       end
-      memo
+      files.push(*packages.files)
     end
   end
 end
