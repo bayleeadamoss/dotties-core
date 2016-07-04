@@ -22,7 +22,14 @@ class Package
   end
 
   def files
-    []
+    Dir.entries(folder_path).select { |file|
+      is_hidden = file.match(/^\./)
+      is_directory = File.directory?(File.join(folder_path, file))
+      is_ignored = config.get(:ignore, []).include?(file)
+      !is_hidden and !is_directory and !is_ignored
+    }.map { |file|
+      File.join(folder_path, file)
+    }
   end
 
   def installed?

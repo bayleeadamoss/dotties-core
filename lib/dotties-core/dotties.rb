@@ -11,6 +11,8 @@ class Dotties
       Formats::Gitconfig.new,
       Formats::TmuxConf.new,
       Formats::Vimrc.new,
+      Formats::VimrcBundles.new,
+      Formats::Zshrc.new,
       Formats::UnknownFormat.new,
     ]
   end
@@ -83,7 +85,7 @@ class Dotties
       package.dependencies.each do |child|
         files.push(*component_files(child))
       end
-      files.push(*packages.files)
+      files.push(*package.files)
     end
   end
 end

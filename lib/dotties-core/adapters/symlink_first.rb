@@ -15,7 +15,7 @@ module Adapters
       links.each do |base_name, path|
         link = File.join('configs', base_name)
         File.symlink?(link) && File.delete(link)
-        File.symlink(path, link)
+        File.symlink(File.absolute_path(path), link)
       end
     end
   end
