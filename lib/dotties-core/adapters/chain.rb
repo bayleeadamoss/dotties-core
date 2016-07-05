@@ -24,7 +24,7 @@ module Adapters
     end
 
     def link(save_to, include_path)
-      data = template(File.absolute_path(include_path))
+      data = template(File.expand_path(include_path))
       File.open(save_to, 'w') do |file|
         file.write(data)
       end

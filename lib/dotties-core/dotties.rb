@@ -3,9 +3,10 @@ require 'fileutils'
 require 'yaml'
 
 class Dotties
-  attr_accessor :files, :formats
+  attr_accessor :files, :formats, :config_path
 
   def initialize
+    self.config_path = File.expand_path('~/.dotties/.dotties.yml')
     self.files = []
     self.formats = [
       Formats::Gitconfig.new,
@@ -15,6 +16,7 @@ class Dotties
       Formats::Zshrc.new,
       Formats::UnknownFormat.new,
     ]
+    setup!
   end
 
   def install(package_name, root_level_page = true)
@@ -28,8 +30,8 @@ class Dotties
       end
 
       if root_level_page
-        ConfigFile.new('.dotties.yml').add(:packages, package.name)
-        update_noop
+        ConfigFile.new(config_path).add(:packages, package.name)
+        update
         puts "Package '#{package_name}' installed."
       end
     else
@@ -47,8 +49,8 @@ class Dotties
       package.uninstall!
 
       if root_level_package
-        ConfigFile.new('.dotties.yml').remove(:packages, package)
-        update_noop
+        ConfigFile.new(config_path).remove(:packages, package)
+        update
         puts "Package '#{package_name}' uninstalled."
       end
     end
@@ -66,11 +68,13 @@ class Dotties
 
   protected
 
-  def update_noop
+  def setup!
+    FileUtils.mkdir_p(File.expand_path('~/.dotties/dots/'))
+    FileUtils.mkdir_p(File.expand_path('~/.dotties/packages/'))
   end
 
   def components
-    ConfigFile.new('.dotties.yml').get(:packages, [])
+    ConfigFile.new(config_path).get(:packages, [])
   end
 
   def files
