@@ -2,8 +2,6 @@ class Package
 
   attr_accessor :name, :config
 
-  ROOT = './components'
-
   def initialize(name)
     @name = name
     @config = ConfigFile.new(config_path)
@@ -18,7 +16,7 @@ class Package
   end
 
   def folder_path
-    File.join(ROOT, name.gsub('/', '-'))
+    File.join(DOTTIES_PACKAGES, name.gsub('/', '-'))
   end
 
   def files

@@ -3,7 +3,7 @@ module Adapters
     attr_accessor :configs
 
     def initialize
-      self.configs = []
+      @configs = []
     end
 
     def name
@@ -36,7 +36,7 @@ module Adapters
     end
 
     def save!
-      link(File.join('configs', name), configs.first) unless configs.empty?
+      link(File.join(DOTTIES_DOTS, name), configs.first) unless configs.empty?
       configs.each_index do |follower_index|
         follower = configs[follower_index]
         leader = configs[follower_index + 1]

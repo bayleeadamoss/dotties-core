@@ -1,4 +1,6 @@
-require 'pry'
+require 'yaml'
+require 'fileutils'
+require 'open-uri'
 
 require_relative './dotties-core/adapters/chain'
 require_relative './dotties-core/adapters/require'
@@ -12,7 +14,6 @@ require_relative './dotties-core/formats/zshrc'
 require_relative './dotties-core/formats/unknown_format'
 
 require_relative './dotties-core/controller'
-require_relative './dotties-core/dotties-cli'
 require_relative './dotties-core/dotties'
 require_relative './dotties-core/package'
 require_relative './dotties-core/config_file'

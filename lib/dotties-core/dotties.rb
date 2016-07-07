@@ -1,14 +1,10 @@
-require 'open-uri'
-require 'fileutils'
-require 'yaml'
-
 class Dotties
   attr_accessor :files, :formats, :config_path
 
   def initialize
-    self.config_path = File.expand_path('~/.dotties/.dotties.yml')
-    self.files = []
-    self.formats = [
+    @config_path = File.join(DOTTIES_WORKSPACE, '.dotties.yml')
+    @files = []
+    @formats = [
       Formats::Gitconfig.new,
       Formats::TmuxConf.new,
       Formats::Vimrc.new,
@@ -16,7 +12,6 @@ class Dotties
       Formats::Zshrc.new,
       Formats::UnknownFormat.new,
     ]
-    setup!
   end
 
   def install(package_name, root_level_page = true)
@@ -67,11 +62,6 @@ class Dotties
   end
 
   protected
-
-  def setup!
-    FileUtils.mkdir_p(File.expand_path('~/.dotties/dots/'))
-    FileUtils.mkdir_p(File.expand_path('~/.dotties/packages/'))
-  end
 
   def components
     ConfigFile.new(config_path).get(:packages, [])

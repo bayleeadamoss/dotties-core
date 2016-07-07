@@ -3,7 +3,7 @@ module Adapters
     attr_accessor :data
 
     def initialize
-      self.data = []
+      @data = []
     end
 
     def name
@@ -25,7 +25,7 @@ module Adapters
 
     def save!
       return if data.empty?
-      File.open(File.join('configs', name), 'w') do |file|
+      File.open(File.join(DOTTIES_DOTS, name), 'w') do |file|
         file.write(data.join("\n"))
       end
     end

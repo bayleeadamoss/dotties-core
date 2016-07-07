@@ -3,7 +3,7 @@ module Adapters
     attr_accessor :links
 
     def initialize
-      self.links = {}
+      @links = {}
     end
 
     def push(path)
@@ -13,7 +13,7 @@ module Adapters
 
     def save!
       links.each do |base_name, path|
-        link = File.join('configs', base_name)
+        link = File.join(DOTTIES_DOTS, base_name)
         File.symlink?(link) && File.delete(link)
         File.symlink(File.expand_path(path), link)
       end
