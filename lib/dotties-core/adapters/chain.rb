@@ -1,5 +1,5 @@
 module Adapters
-  class Chain
+  class Chain < Core
     attr_accessor :configs
 
     def initialize
@@ -35,8 +35,13 @@ module Adapters
       File.join(path, ".next.#{name}")
     end
 
+    def dottie
+      File.join(DOTTIES_DOTS, name)
+    end
+
     def save!
-      link(File.join(DOTTIES_DOTS, name), configs.first) unless configs.empty?
+      link(dottie, configs.first) unless configs.empty?
+      link_home(dottie)
       configs.each_index do |follower_index|
         follower = configs[follower_index]
         leader = configs[follower_index + 1]

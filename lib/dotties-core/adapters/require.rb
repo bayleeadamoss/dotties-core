@@ -1,5 +1,5 @@
 module Adapters
-  class Require
+  class Require < Core
     attr_accessor :data
 
     def initialize
@@ -23,11 +23,16 @@ module Adapters
       data << template(path)
     end
 
+    def dottie
+      File.join(DOTTIES_DOTS, name)
+    end
+
     def save!
       return if data.empty?
-      File.open(File.join(DOTTIES_DOTS, name), 'w') do |file|
+      File.open(dottie, 'w') do |file|
         file.write(data.join("\n"))
       end
+      link_home(dottie)
     end
   end
 end

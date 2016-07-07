@@ -2,6 +2,7 @@ require 'yaml'
 require 'fileutils'
 require 'open-uri'
 
+require_relative './dotties-core/adapters/core'
 require_relative './dotties-core/adapters/chain'
 require_relative './dotties-core/adapters/require'
 require_relative './dotties-core/adapters/symlink_first'
