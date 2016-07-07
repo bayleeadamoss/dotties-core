@@ -6,6 +6,7 @@ DOTTIES_HOME = File.expand_path('~/')
 DOTTIES_WORKSPACE = File.expand_path('~/.dotties')
 DOTTIES_PACKAGES = File.join(DOTTIES_WORKSPACE, 'packages')
 DOTTIES_DOTS = File.join(DOTTIES_WORKSPACE, 'dots')
+DOTTIES_CORE = File.join(File.dirname(File.realpath(__FILE__)), '..')
 
 FileUtils.mkdir_p(DOTTIES_DOTS)
 FileUtils.mkdir_p(DOTTIES_PACKAGES)

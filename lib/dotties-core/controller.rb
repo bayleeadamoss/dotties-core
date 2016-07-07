@@ -26,7 +26,7 @@ class Controller
   end
 
   def version(option = nil)
-    version_file = File.join(File.dirname(__FILE__), '..', '..', '.version')
+    version_file = File.join(DOTTIES_CORE, '.version')
     puts "dotties version #{File.read(version_file).strip}"
   end
 
