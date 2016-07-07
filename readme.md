@@ -3,9 +3,13 @@
 Proof of concept for creating dotties with submodule components:
 
 ~~~
-git clone git@github.com:blainesch/dotties-core.git --recursive
-cd dotties-core
-./bin/dotties help
-./bin/dotties update
-./bin/dotties --version
+brew tap tinytacoteam/formulae
+brew install dotties
+~~~
+
+To get started check out [my core file](https://github.com/blainesch/dotties)
+
+~~~
+dotties --version
+dotties install blainesch/dotties
 ~~~
