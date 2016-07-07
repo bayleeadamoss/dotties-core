@@ -1,7 +1,11 @@
 class Controller
   def method_missing(method, *args)
-    puts "Error: Method '#{method}' not found!"
-    help
+    if method.to_s == '--version'
+      version
+    else
+      puts "Error: Method '#{method}' not found!"
+      help
+    end
   end
 
   def help(option = nil)
@@ -13,11 +17,16 @@ class Controller
         "  dotties install <package>",
         "  dotties uninstall <package>",
         "  dotties update",
+        "  dotties version",
         "  dotties help [<command>]",
       ].each do |line|
         puts line
       end
     end
+  end
+
+  def version(option = nil)
+    puts "dotties version #{File.read('.version').strip}"
   end
 
   def install(option = nil)
