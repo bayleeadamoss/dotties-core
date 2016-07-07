@@ -8,6 +8,7 @@ require_relative './dotties-core/adapters/bin'
 require_relative './dotties-core/adapters/require'
 require_relative './dotties-core/adapters/symlink_first'
 
+require_relative './dotties-core/formats/bin'
 require_relative './dotties-core/formats/gitconfig'
 require_relative './dotties-core/formats/tmux_conf'
 require_relative './dotties-core/formats/vimrc'
