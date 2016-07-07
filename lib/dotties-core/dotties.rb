@@ -11,6 +11,7 @@ class Dotties
       Formats::VimrcBundles.new,
       Formats::Zshrc.new,
       Formats::Bin.new,
+      Formats::Config.new,
       Formats::UnknownFormat.new,
     ]
   end
