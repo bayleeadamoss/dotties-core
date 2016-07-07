@@ -26,7 +26,8 @@ class Controller
   end
 
   def version(option = nil)
-    puts "dotties version #{File.read('.version').strip}"
+    version_file = File.join(File.dirname(__FILE__), '..', '..', '.version')
+    puts "dotties version #{File.read(version_file).strip}"
   end
 
   def install(option = nil)
