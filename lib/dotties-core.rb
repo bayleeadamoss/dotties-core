@@ -16,6 +16,7 @@ require_relative './dotties-core/formats/tmux_conf'
 require_relative './dotties-core/formats/vimrc'
 require_relative './dotties-core/formats/vimrc_bundles'
 require_relative './dotties-core/formats/zshrc'
+require_relative './dotties-core/formats/dotties_postup'
 require_relative './dotties-core/formats/unknown_format'
 
 require_relative './dotties-core/controller'

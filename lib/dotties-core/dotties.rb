@@ -5,13 +5,14 @@ class Dotties
     @config_path = File.join(DOTTIES_WORKSPACE, '.dotties.yml')
     @files = []
     @formats = [
+      Formats::Bin.new,
+      Formats::Config.new,
+      Formats::DottiesPostup.new,
       Formats::Gitconfig.new,
       Formats::TmuxConf.new,
       Formats::Vimrc.new,
       Formats::VimrcBundles.new,
       Formats::Zshrc.new,
-      Formats::Bin.new,
-      Formats::Config.new,
       Formats::UnknownFormat.new,
     ]
   end
@@ -61,18 +62,23 @@ class Dotties
       }.push(file_name)
     end
     formats.each(&:save!)
+    postup!
   end
 
   protected
+
+  def postup!
+    system("sh ~/.dotties.postup")
+  end
 
   def components
     ConfigFile.new(config_path).get(:packages, [])
   end
 
   def files
-    components.reduce([]) do |memo, component|
+    components.reduce([]) { |memo, component|
       memo + component_files(component)
-    end
+    }.uniq
   end
 
   def component_files(package_name)
