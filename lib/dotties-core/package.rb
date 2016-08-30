@@ -41,6 +41,10 @@ class Package
     `git clone https://github.com/#{name}.git #{folder_path}` unless installed?
   end
 
+  def update!
+    `cd #{folder_path} && git pull` unless installed?
+  end
+
   def exists?
     installed? || open("https://api.github.com/repos/#{name}/stats/commit_activity")
     true

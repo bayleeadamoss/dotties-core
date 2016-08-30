@@ -55,6 +55,9 @@ class Dotties
   end
 
   def update
+    components.each do |component|
+      download_package_updates!(component)
+    end
     files.each do |file_name|
       base_name = File.basename(file_name)
       formats.detect { |adapter|
@@ -66,6 +69,15 @@ class Dotties
   end
 
   protected
+
+  def download_package_updates!(component)
+    package = Package.new(component)
+    package.install!
+    package.update!
+    package.dependencies.each do |child|
+      download_package_updates!(child)
+    end
+  end
 
   def postup!
     system("sh ~/.dotties.postup")
