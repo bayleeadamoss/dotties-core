@@ -42,7 +42,7 @@ class Package
   end
 
   def update!
-    `cd #{folder_path} && git pull` unless installed?
+    `cd #{folder_path} && git pull` if installed?
   end
 
   def exists?
