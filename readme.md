@@ -29,7 +29,7 @@ and commit them back to GitHub.
 
 ### Requirements
 
-* Mac (Yosemite or higher)
+* Mac OS X
 * [Homebrew](http://brew.sh/)
 
 ### Installing
