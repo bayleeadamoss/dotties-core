@@ -9,27 +9,7 @@ own dotfiles. For example, the search behavior in `.vimrc` can be extracted as
 an extension which can be added to your existing configuration through dotties
 package management.
 
-Dottie works with GitHub for package management, so any short GitHub url can be
-a dotties package. For instance `https://github.com/blainesch/dotties` would be
-installed as `blainesch/dotties`. So converting your current dotfiles into a
-dotties repo is seamless.
-
-~~~
-brew tap tinytacoteam/formulae
-brew install dotties
-~~~
-
 To get started check out [my core file](https://github.com/blainesch/dotties)
-
-~~~
-dotties --version
-dotties install blainesch/dotties
-~~~
-
-## Managing Packages
-
-TO BE FILLED OUT. Include details such as dotties.yml, commands to install and
-update packages etc.
 
 ## How does it work?
 
@@ -44,3 +24,60 @@ In order to achieve this Dotties will create a single config file (say
 Files from the packages are installed in `~/.dotties/packages/${USERNAME-REPO}`
 and are never modified by dotties, so feel free to update these files in place
 and commit them back to GitHub.
+
+## Usage
+
+### Requirements
+
+* Mac (Yosemite or higher)
+* [Homebrew](http://brew.sh/)
+
+### Installing
+
+You can install dotties from [Homebrew](http://brew.sh/).
+
+~~~
+brew tap tinytacoteam/formulae
+brew install dotties
+~~~
+
+### Getting started
+
+Create a repo on GitHub with your dotfiles inside of it.
+
+Let's assume the directory structure looks like this:
+
+~~~
+dotfiles/
+|-- vimrc
+|-- tmux.conf
+~~~
+
+Dottie works with GitHub for package management, so any short GitHub url can be
+a dotties package. For instance `https://github.com/blainesch/dotties` would be
+installed as `blainesch/dotties`. So converting your current dotfiles into a
+dotties repo is seamless.
+
+To install a repo simply run:
+
+~~~
+dotties install blainesch/dotties
+~~~
+
+### .dotties.yml
+
+Optionally, you can have a `.dotties.yml` if you wish to include additional
+packages or you want to ignore files such as a `readme` or pictures of your dog.
+
+A simple `.dotties.yml` might look lke this:
+
+~~~ yaml
+packages:
+  - tinytacoteam/dotties-vim-movements
+ignore:
+  - readme.md
+~~~
+
+This says that next time you install or update your dotfiles to ignore the
+`readme.md` file and to include the package
+`tinytacoteam/dotties-vim-movements`.
