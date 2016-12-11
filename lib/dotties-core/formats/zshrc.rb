@@ -1,9 +1,12 @@
 module Formats
   class Zshrc < Adapters::Require
     def template(path)
-      %{
-        [[ -f #{path} ]] && source #{path}
-      }
+%{#!/usr/bin/env bash
+if [ -f #{path} ] 
+then
+    source #{path}
+fi 
+}
     end
   end
 end
