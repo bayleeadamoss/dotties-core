@@ -25,17 +25,7 @@ Files from the packages are installed in `~/.dotties/packages/${USERNAME-REPO}`
 and are never modified by dotties, so feel free to update these files in place
 and commit them back to GitHub.
 
-## Usage
-
-### Requirements
-
-* Mac OS X
-* [Homebrew](http://brew.sh/)
-
-* Ubuntu
-* Manual Install
-
-### Installing
+## Insalling on OS X
 
 You can install dotties from [Homebrew](http://brew.sh/).
 
@@ -44,22 +34,28 @@ brew tap tinytacoteam/formulae
 brew install dotties
 ~~~
 
-### Manual Install (Ubuntu)
+## Installing on Ubuntu
 
-#### Install rvm
+### Install rvm
+
+~~~
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 \curl -sSL https://get.rvm.io | bash
 source /etc/profile.d/rvm.sh
 rvm install ruby-2.2
+~~~
 
-#### Install dotties
+### Install dotties
+
+~~~
 cd /tmp
 git clone https://github.com/tinytacoteam/dotties-core.git
 cd dotties-core/bin
 mv ../lib /usr/local/bin/.dotties-lib
 cat dotties | sed -e 's|../lib|.dotties-lib|g' > /usr/local/bin/dotties
+~~~
 
-### Getting started
+## Getting started
 
 Create a repo on GitHub with your dotfiles inside of it.
 
@@ -82,7 +78,7 @@ To install a repo simply run:
 dotties install blainesch/dotties
 ~~~
 
-### .dotties.yml
+## .dotties.yml
 
 Optionally, you can have a `.dotties.yml` if you wish to include additional
 packages or you want to ignore files such as a `readme` or pictures of your dog.
