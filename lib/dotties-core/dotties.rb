@@ -80,7 +80,7 @@ class Dotties
   end
 
   def postup!
-    system("sh ~/.dotties.postup")
+    system("bash ~/.dotties.postup")
   end
 
   def components
