@@ -32,6 +32,9 @@ and commit them back to GitHub.
 * Mac OS X
 * [Homebrew](http://brew.sh/)
 
+* Ubuntu
+* Manual Install
+
 ### Installing
 
 You can install dotties from [Homebrew](http://brew.sh/).
@@ -40,6 +43,22 @@ You can install dotties from [Homebrew](http://brew.sh/).
 brew tap tinytacoteam/formulae
 brew install dotties
 ~~~
+
+### Manual Install (Ubuntu)
+
+#### Install rvm
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -sSL https://get.rvm.io | bash
+source /etc/profile.d/rvm.sh
+rvm install ruby-2.2
+
+#### Install dotties
+cd /tmp
+git clone https://github.com/tinytacoteam/dotties-core.git
+cd dotties-core/bin
+mv ../lib .dotties-lib
+mv dotties /usr/local/bin/dotties
+mv .dotties-lib /usr/local/bin/.dotties-lib
 
 ### Getting started
 
