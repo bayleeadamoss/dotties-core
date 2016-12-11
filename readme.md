@@ -57,8 +57,7 @@ cd /tmp
 git clone https://github.com/tinytacoteam/dotties-core.git
 cd dotties-core/bin
 mv ../lib .dotties-lib
-mv dotties /usr/local/bin/dotties
-mv .dotties-lib /usr/local/bin/.dotties-lib
+cat dotties | sed -e 's|../lib|dotties-lib|g' > /usr/local/bin/dotties
 
 ### Getting started
 
