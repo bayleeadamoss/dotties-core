@@ -48,7 +48,7 @@ rvm install ruby-2.2
 
 ~~~
 cd /tmp
-git clone https://github.com/tinytacoteam/dotties-core.git
+git clone https://github.com/bayleeadamoss/dotties-core.git
 cd dotties-core/bin
 mv ../lib /usr/local/bin/.dotties-lib
 cat dotties | sed -e 's|../lib|.dotties-lib|g' > /usr/local/bin/dotties
@@ -74,7 +74,7 @@ dotties repo is seamless.
 To install a repo simply run:
 
 ~~~
-dotties install blainesch/dotties
+dotties install bayleedev/dotties
 ~~~
 
 ## .dotties.yml
@@ -86,11 +86,11 @@ A simple `.dotties.yml` might look lke this:
 
 ~~~ yaml
 packages:
-  - tinytacoteam/dotties-vim-movements
+  - bayleeadamoss/dotties-vim-movements
 ignore:
   - readme.md
 ~~~
 
 This says that next time you install or update your dotfiles to ignore the
 `readme.md` file and to include the package
-`tinytacoteam/dotties-vim-movements`.
+`bayleeadamoss/dotties-vim-movements`.
