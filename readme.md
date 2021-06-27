@@ -30,8 +30,7 @@ and commit them back to GitHub.
 You can install dotties from [Homebrew](http://brew.sh/).
 
 ~~~
-brew tap tinytacoteam/formulae
-brew install dotties
+brew install bayleeadamoss/formulae/dotties
 ~~~
 
 ## Installing on Ubuntu
