@@ -67,8 +67,8 @@ dotfiles/
 ~~~
 
 Dottie works with GitHub for package management, so any short GitHub url can be
-a dotties package. For instance `https://github.com/blainesch/dotties` would be
-installed as `blainesch/dotties`. So converting your current dotfiles into a
+a dotties package. For instance `https://github.com/bayleedev/dotties` would be
+installed as `bayleedev/dotties`. So converting your current dotfiles into a
 dotties repo is seamless.
 
 To install a repo simply run:
